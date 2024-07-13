@@ -58,9 +58,6 @@ celerybeat-schedule
 .env.test
 .env.*.local
 
-# fastapi specific
-*.db
-
 # VS Code
 .vscode/
 *.code-workspace
