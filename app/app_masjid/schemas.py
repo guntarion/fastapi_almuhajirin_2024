@@ -1,7 +1,7 @@
 from typing import List, Optional
 from pydantic import BaseModel
 from datetime import date
-
+from typing import List, Optional
 
 class CatatanMKidsBase(BaseModel):
     aktivitas_kedatangan: int
@@ -66,6 +66,27 @@ class BadgeCreate(BadgeBase):
 
 class Badge(BadgeBase):
     id: int
+
+    class Config:
+        orm_mode = True
+
+from pydantic import BaseModel
+from typing import List, Optional
+
+class LeaderboardStudent(BaseModel):
+    id: int
+    nama_lengkap: str
+    nama_panggilan: str
+    total_kedatangan: Optional[int] = 0
+    total_iqomat: Optional[int] = 0
+    total_wudhu: Optional[int] = 0
+    total_shof: Optional[int] = 0
+    total_dzikir: Optional[int] = 0
+    total_takkhusyusholat: Optional[int] = 0
+    total_takkhusyukajian: Optional[int] = 0
+    total_nyampah: Optional[int] = 0
+    total_akhlakburuk: Optional[int] = 0
+    total_score: int
 
     class Config:
         orm_mode = True
