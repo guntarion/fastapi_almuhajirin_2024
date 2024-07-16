@@ -103,3 +103,29 @@ def get_leaderboard(db: Session, start_date: date, end_date: date):
     ).all()
 
     return leaderboard
+
+def get_daily_leaderboard(db: Session, date: date):
+    activities = db.query(models.CatatanMKids).filter(models.CatatanMKids.date_created == date).all()
+
+    leaderboard = []
+    for activity in activities:
+        student = db.query(models.MuhajirinKids).filter(models.MuhajirinKids.id == activity.kid_id).first()
+        positive_score = (activity.aktivitas_kedatangan + activity.aktivitas_iqomat + 
+                          activity.aktivitas_wudhu + activity.aktivitas_shof + activity.aktivitas_dzikir)
+        negative_score = (activity.aktivitas_takkhusyusholat + activity.aktivitas_takkhusyukajian + 
+                          activity.aktivitas_nyampah + activity.aktivitas_akhlakburuk)
+
+        total_score = positive_score - negative_score
+
+        leaderboard.append({
+            "id": student.id,
+            "nama_panggilan": student.nama_panggilan,
+            "positive_score": positive_score,
+            "negative_score": negative_score,
+            "total_score": total_score
+        })
+
+    # Sort leaderboard by total score in descending order
+    leaderboard.sort(key=lambda x: x["total_score"], reverse=True)
+
+    return leaderboard

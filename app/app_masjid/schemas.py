@@ -90,3 +90,13 @@ class LeaderboardStudent(BaseModel):
 
     class Config:
         orm_mode = True
+
+class LeaderboardEntry(BaseModel):
+    id: int
+    nama_panggilan: str
+    positive_score: int
+    negative_score: int
+    total_score: int
+
+    class Config:
+        orm_mode = True

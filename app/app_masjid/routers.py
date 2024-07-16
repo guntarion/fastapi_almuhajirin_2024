@@ -40,3 +40,7 @@ def get_leaderboard(
     db: Session = Depends(get_masjid_db)
 ):
     return crud.get_leaderboard(db=db, start_date=start_date, end_date=end_date)
+
+@router.get("/leaderboard/daily/", response_model=List[schemas.LeaderboardEntry])
+def get_daily_leaderboard(date: date, db: Session = Depends(get_masjid_db)):
+    return crud.get_daily_leaderboard(db=db, date=date)
